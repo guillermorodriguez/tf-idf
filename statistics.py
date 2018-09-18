@@ -16,11 +16,11 @@ from nltk.stem.porter import PorterStemmer
 
 class statistics:
 
+    """
+        Constructor
+    """
     def __init__(self):
         print('Statistics Object Initialized')
-        self.tokens = {}
-        self.lems = {}
-        self.stem = {}
 
     """
         @ Author:       Guillermo Rodriguez
