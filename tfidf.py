@@ -37,8 +37,8 @@ if parse.graph and parse.statistics:
     for _doc in _content.keys():
         if len(_content[_doc].strip()) > 0:
             _token[_doc] = _statistics.tokenization(_content[_doc])
-            _lem[_doc] = _statistics.lemmatization(_content[_doc])
-            _stem[_doc] = _statistics.stemminization(_content[_doc])
+            _lem[_doc] = _statistics.lemmatization(_token[_doc])
+            _stem[_doc] = _statistics.stemminization(_lem[_doc])
 
 
     # Create Graphical Elements
