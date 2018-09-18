@@ -23,6 +23,14 @@ class statistics:
     def tokenization(self, data):
         result = {}
 
+        for _word in data.split(' '):
+            _word = _word.strip()
+
+            if _word in result:
+                result[_word] += 1
+            else:
+                result[_word] = 0
+
         return result
 
     """
@@ -30,8 +38,14 @@ class statistics:
             @ Date:         09/18/2018
             @ Purpose:      Tokenize a data set
         """
-    def lemmatization(self, data):
+    def lemmatization(self, tokenized_data):
         result = {}
+
+        lemmatizer = WordNetLemmatizer()
+
+        for _token in tokenized_data:
+
+
 
         return result
 
