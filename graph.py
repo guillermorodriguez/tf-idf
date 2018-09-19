@@ -19,7 +19,9 @@ class graph():
         print("Plotly Version: %s" % plotly.__version__)
 
     """
-    
+        @ Author:       Guillermo Rodriguez
+        @ Date:         09/18/2018
+        @ Purpose:      Creates a bar chart from input sequence
     """
     def create_plot(self, input):
         labels = []

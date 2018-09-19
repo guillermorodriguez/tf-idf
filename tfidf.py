@@ -2,6 +2,7 @@ import argparse
 import os
 from graph import *
 from statistics import *
+from wordcloud import *
 
 print('Started ....')
 
@@ -24,6 +25,7 @@ if parse.graph and parse.statistics and parse.query:
     _idf = {}                       # Inverse Document Frequency
     _tfidf = {}                     # Term Frequency - Inverse Document Frequency
     _vs = []                        # Vector Space
+    _cos = {}                       # Cosine Similarity
 
     # Read Data set=
     for _file in os.listdir(_path):
@@ -63,6 +65,38 @@ if parse.graph and parse.statistics and parse.query:
         term = key.split('-')[1]
         _tfidf[key] = _tf[key] * _idf[term]
 
+    for index in range(len(_vs)):
+        _a_magnitude = 0
+
+        for _a_element in _vs[index]:
+            _a_magnitude += math.pow(_a_element, 2)
+
+        _a_magnitude = math.sqrt(_a_magnitude)
+
+        _rolling_index = index+1
+        for _next_array in _vs[index+1:]:
+            _ab_value = 0
+            _b_magnitude = 0
+
+            for _b_index in range(len(_next_array)):
+                _b_magnitude += math.pow(_next_array[_b_index], 2)
+
+                _ab_value += _vs[index][_b_index] * _next_array[_b_index]
+
+            _b_magnitude = math.sqrt(_b_magnitude)
+
+            _denominator = 1
+            if _a_magnitude * _b_magnitude > 0:
+                _denominator = _a_magnitude * _b_magnitude
+
+            _cos[str(index) + '-' + str(_rolling_index)] = _ab_value/_denominator
+            print("%s = %s" % (str(index) + '-' + str(_rolling_index), _cos[str(index) + '-' + str(_rolling_index)]))
+            print(_vs[index])
+            print(_vs[_rolling_index])
+
+            _rolling_index += 1
+
+
     print("Tokens:")
     print(_token)
 
@@ -84,9 +118,15 @@ if parse.graph and parse.statistics and parse.query:
     print("Vector Space")
     print(_vs)
 
+    print("Cosine Similarity")
+    print(_cos)
+
     # Create Graphical Elements
     _graph = graph()
     _graph.create_plot(_tfidf)
+
+    # Create Word Cloud
+    _wordcloud = wordCloud()
 
 
 else:
