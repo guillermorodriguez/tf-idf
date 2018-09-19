@@ -1,8 +1,6 @@
 import argparse
-import os
 from graph import *
 from statistics import *
-from wordcloud import *
 
 print('Started ....')
 
@@ -90,9 +88,6 @@ if parse.graph and parse.statistics and parse.query:
                 _denominator = _a_magnitude * _b_magnitude
 
             _cos[str(index) + '-' + str(_rolling_index)] = _ab_value/_denominator
-            print("%s = %s" % (str(index) + '-' + str(_rolling_index), _cos[str(index) + '-' + str(_rolling_index)]))
-            print(_vs[index])
-            print(_vs[_rolling_index])
 
             _rolling_index += 1
 
@@ -121,13 +116,13 @@ if parse.graph and parse.statistics and parse.query:
     print("Cosine Similarity")
     print(_cos)
 
+    print("Content")
+    print(_content['1'])
+
     # Create Graphical Elements
-    _graph = graph()
-    _graph.create_plot(_tfidf)
-
-    # Create Word Cloud
-    _wordcloud = wordCloud()
-
+    if parse.graph == 'YES':
+        _graph = graph()
+        _graph.create_plot(_tfidf)
 
 else:
     parser.print_help()
